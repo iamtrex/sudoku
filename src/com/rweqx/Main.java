@@ -54,6 +54,7 @@ public class Main{
         for(int i=0; i<arr.length; i++){
             arr[i] = new Box();
             arr[i].setValue(y[i]);
+            //arr[i].setValue(x[i]);
         }
         return arr;
     }
@@ -68,6 +69,7 @@ public class Main{
             9, 8, 0, 6, 0, 0, 0, 0, 0,
             0, 4, 3, 0, 0, 0, 0, 7, 0,
             0, 1, 5, 0, 4, 0, 0, 0, 0};
+
 
     int y[] = {
             9, 4, 0, 0, 7, 0, 0, 3, 2,

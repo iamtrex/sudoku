@@ -91,7 +91,7 @@ public class Board {
                     row.add(r);
                 }
 
-               // int c = boxes[j*9 + i].getValue();
+
                 if(c != 0 && column.contains(c)){
                     //System.out.println("Col Overlap, contains " + c + " with #" + (j*9 + i));
                     return false;
@@ -102,7 +102,7 @@ public class Board {
                 //i = boxnumber (0, 1, 2// 3, 4, 5...), j = loc in box.
                 int x = (i%3)*3 + j%3;
                 int y = i/3*3 + j/3;
-                //int b = boxes[y*9 + x].getValue();
+
                 if(b != 0 && box.contains(b)){
 
                     //System.out.println("Box Overlap, contains " + b + " with #" + (y*9 + x));

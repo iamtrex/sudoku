@@ -32,7 +32,6 @@ public class Solver {
 
                     Board ret = solveByBruteForce(copy);
                     if (ret != null) {
-                    //    System.out.println("Path was solution, returning...");
                         return ret;
                     }
                     //System.out.println("Path returned null");
