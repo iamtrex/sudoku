@@ -1,32 +1,34 @@
 package com.rweqx.logic;
 
+/**
+ * Represents a spot on the sudoku grid.
+ */
 public class Box {
 
-    private boolean allowed[] = new boolean[9];
-    private int value = 0;
+    private int value;
 
     public Box(){
-        for(boolean b : allowed){
-            b = true;
-        }
+        value = 0;
     }
 
-    public boolean[] getAllowed(){
-        return allowed;
-    }
-    public void removeAllowed(int i){
-        allowed[i] = false;
+    /**
+     * Copy constructor
+     * @param box
+     */
+    public Box(Box box) {
+        this.setValue(box.getValue());
     }
 
     public void setValue(int i){
         value = i;
 
-        for(boolean b : allowed){
-            b = false;
-        }
     }
 
     public int getValue(){
         return value;
+    }
+
+    public String toString(){
+        return Integer.toString(value);
     }
 }

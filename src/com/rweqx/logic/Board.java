@@ -6,36 +6,41 @@ import javafx.scene.input.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a sudoku board with 81 boxes.
+ */
 public class Board {
 
     private Box boxes[] = new Box[81];
 
-    public Board(Box[] boxes){
-        this.boxes = boxes;
+    /** Copy constructor.
+     */
+    public Board(Board b){
+        Box boxes[] = b.getBoxes();
+        for(int i =0; i<81; i++){
+            this.boxes[i] = new Box(boxes[i]);
+        }
     }
 
     public Board(){
         for(int i=0; i<boxes.length; i++){
             boxes[i] = new Box();
-
-
         }
     }
 
-    public boolean attemptAdd(int boxID, KeyEvent e) {
-        if(true /*Check if allowed*/) {
-            int i = getIntFromCode(e);
+    public Box[] getBoxes() {
+        return boxes;
+    }
 
+    //TODO check if add is allowed, currently doesn't prevent obvious incorrect boards.
+    public boolean attemptAdd(int boxID, int i) {
+        if(true /*Check if allowed*/) {
             boxes[boxID].setValue(i);
             return true;
         }
         return false;
     }
 
-
-    private int getIntFromCode(KeyEvent e) {
-        return Integer.parseInt(e.getText());
-    }
 
     public boolean isSolved() {
         //Check if all boxes are filled
@@ -60,22 +65,16 @@ public class Board {
         boxes[id].setValue(value);
     }
 
-    public Board copy() {
-        Box[] newBoxes = new Box[81];
-        for(int i=0; i<81; i++){
-            newBoxes[i] = new Box();
-            newBoxes[i].setValue(boxes[i].getValue());
-        }
-        return new Board(newBoxes);
-    }
 
-
-    //Ignores 0's (default values)
+    /**
+     * Returns wehther or current board configuration is legal.
+     */
     public boolean isLegal() {
         //Check overlap
-        List<Integer> row = new ArrayList<Integer>();
-        List<Integer> column = new ArrayList<Integer>();
-        List<Integer> box = new ArrayList<Integer>();
+        List<Integer> row = new ArrayList<>();
+        List<Integer> column = new ArrayList<>();
+        List<Integer> box = new ArrayList<>();
+
         for(int i=0; i<9; i++){ //Row Col or Box #.
             for(int j=0; j<9; j++){ //Element in box.
 
@@ -100,11 +99,9 @@ public class Board {
                 }
 
                 //i = boxnumber (0, 1, 2// 3, 4, 5...), j = loc in box.
-                int x = (i%3)*3 + j%3;
-                int y = i/3*3 + j/3;
-
+                //int x = (i%3)*3 + j%3;
+                //int y = i/3*3 + j/3;
                 if(b != 0 && box.contains(b)){
-
                     //System.out.println("Box Overlap, contains " + b + " with #" + (y*9 + x));
                     return false;
                 }else{
@@ -151,14 +148,35 @@ public class Board {
         return ret;
     }
 
+    /**
+     * Return ith element of given row number.
+     * @param row
+     * @param i
+     * @return
+     */
     private Integer getSquareByRow(int row, int i) {
         return boxes[row*9 + i].getValue();
     }
+
+
+    /**
+     * Return ith element of given col number.
+     * @param col
+     * @param i
+     * @return
+     */
     private Integer getSquareByCol(int col, int i) {
 
         return boxes[i*9 + col].getValue();
     }
 
+    /**
+     * Returns the ith element (counting from topleft by rows til the bottom right)
+     *     of the given box number.
+     * @param box
+     * @param i
+     * @return
+     */
     private Integer getSquareByBox(int box, int i) {
         int x = (box%3)*3 + i%3;
         int y = box/3*3 + i/3;
@@ -166,12 +184,18 @@ public class Board {
     }
 
 
-    public void printResult() {
+    /**
+     * Prints the board
+     */
+    public String toString() {
+        String s = "";
         for(int i=0; i<81; i++){
-            System.out.print(boxes[i].getValue());
-            if((i+1)%9 == 0){
-                System.out.println();
-            }
+            s += boxes[i].toString();
+
+            if((i+1)%9 == 0)
+                s += "\n";
+
         }
+        return s;
     }
 }

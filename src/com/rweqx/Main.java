@@ -9,24 +9,23 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
+import static javafx.application.Application.launch;
 
-public class Main{
+
+public class Main extends Application{
 
     //@Override
     public void start(Stage primaryStage) throws Exception{
-        Board board = new Board();
-        InputController IC = new InputController(board);
-        UI ui = new UI(primaryStage, IC);
-
-
+        InputController IC = new InputController(primaryStage);
         Platform.setImplicitExit(true);
     }
 
     public static void main(String args[]){
-        //launch(args);
-        Main main = new Main();
+        launch(args);
+        //Main main = new Main();
     }
 
+    /*
     public Main(){
         testMain();
     }
@@ -81,4 +80,5 @@ public class Main{
             2, 0, 0, 5, 0, 0, 7, 0, 0,
             0, 0, 4, 8, 0, 7, 3, 2, 0,
             6, 0, 7, 0, 2, 0, 0, 0, 0};
+    */
 }
